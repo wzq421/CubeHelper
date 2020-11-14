@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.ui.timer.TimerViewModel" />
+    </data>
+    <com.blankj.swipepanel.SwipePanel
+        android:id="@+id/timer_swipe_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:isLeftCenter="true"
+        android:fitsSystemWindows="true"
+        app:leftSwipeColor="@color/light_gray"
+        app:leftDrawable="@drawable/slide_to_left">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/timer_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/timer_appbar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="37dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    binding:onClickCommand="@{viewModel.goBack}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/set_new_countdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timer_appbar">
+
+                <EditText
+                    android:id="@+id/new_countdown"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="设置新的倒计时时长"
+                    android:maxLines="1"
+                    android:text="@={viewModel.newCountdown}" />
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="更改"
+                    binding:onClickCommand="@{viewModel.changeCountdown}" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/shuffling_formulation"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@{viewModel.mShufflingFormulation.formulation}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/set_new_countdown" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/goto_timing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/set_new_countdown">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/countdown_time"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="@{viewModel.countdown}"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/start_countdown"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:text="开始倒计时"
+                    binding:onClickCommand="@{viewModel.startCountdown}" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/goto_timing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="直接开始计时"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                binding:onClickCommand="@{viewModel.goToTimingDirectly}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.blankj.swipepanel.SwipePanel>
+</layout>

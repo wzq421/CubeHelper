@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Cube Helper</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gesture_helper">此时你在主页面，你可以向右划或者点击图片左上方按钮打开菜单栏，左划或者点击图片右下角进入计时器页面，你也可以直接在主页面开始，用打乱公式打乱你的魔方后点击下方计时按钮会开始进行倒计时，此时你有时间观察魔方，当倒计时结束或者你再次点击计时按钮就是直接进入计时页面，计时会在你点击的时候直接开始，请直接开始还原。</string>
+</resources>
