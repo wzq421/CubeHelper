@@ -131,7 +131,7 @@ public class MainActivityViewModel extends BaseViewModel {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                if((millisUntilFinished/1000)!=countDownTime) {
+                if((millisUntilFinished/1000)<countDownTime) {
                     showTime.setValue(millisUntilFinished / 1000 + "s");
                 }
             }

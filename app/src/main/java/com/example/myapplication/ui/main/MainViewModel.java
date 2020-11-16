@@ -42,6 +42,7 @@ public class MainViewModel extends BaseViewModel {
     public MutableLiveData<Boolean> showAlertDialog=new MutableLiveData<>(false);
     public MutableLiveData<Boolean> isLogin=new MutableLiveData<>();
     public MutableLiveData<Grade_Change> gradeChange=new MutableLiveData<>();
+    public MutableLiveData<Boolean> showDelete=new MutableLiveData<>(false);
     public MainViewModel(@NonNull Application application) {
         super(application);
     }
@@ -77,6 +78,17 @@ public class MainViewModel extends BaseViewModel {
             for(int i=0;i<10;i++){
                 items.add(new MainItemViewModel(MainViewModel.this,new MainItemBean("00:15:0"+i,0)));
             }
+        }
+    });
+    //显示删除按钮
+    public BindingCommand delete=new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            if(items.size()==0) {
+                ToastUtils.showShort("成绩已经清空");
+                return;
+            }
+            showDelete.setValue(!showDelete.getValue());
         }
     });
     //注册计时页面的观察者

@@ -46,6 +46,12 @@ public BindingCommand<View> itemDelete=new BindingCommand<View>(new BindingConsu
         });
     }
 });
+    public BindingCommand delete=new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            RxBus.getDefault().post(new Grade_Change(-1,mainItemBean.getGrade(),0));
+        }
+    });
     public MainItemBean getMainItemBean() {
         return mainItemBean;
     }

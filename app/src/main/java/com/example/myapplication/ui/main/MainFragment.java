@@ -58,7 +58,7 @@ public class MainFragment extends BaseFragment<FragmentMainBinding,MainViewModel
                 builder.setPositiveButton("ok我学会了", null);
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
+binding.rv.findViewHolderForLayoutPosition(0).itemView.findViewById(R.id.item_delete).setVisibility(View.VISIBLE);
             }
         });
         viewModel.newGrade.observe(this,mainItemBean -> {
@@ -79,6 +79,18 @@ public class MainFragment extends BaseFragment<FragmentMainBinding,MainViewModel
             }else if(grade_change.getAction()==1){
                 binding.rv.getLayoutManager().scrollToPosition(0);
             }
+        });
+        //显示每一个Item的删除按钮，在显示过程中不能点击总删除
+        viewModel.showDelete.observe(this,aBoolean -> {
+            binding.delete.setClickable(false);
+            for(int i=0;i<viewModel.items.size();i++){
+                if(aBoolean){
+                    binding.rv.findViewHolderForLayoutPosition(i).itemView.findViewById(R.id.item_delete).setVisibility(View.VISIBLE);
+                }else {
+                    binding.rv.findViewHolderForLayoutPosition(i).itemView.findViewById(R.id.item_delete).setVisibility(View.INVISIBLE);
+                }
+            }
+            binding.delete.setClickable(true);
         });
     }
 //点击打开timer
