@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.example.myapplication.R;
 import com.example.myapplication.bean.MainItemBean;
+import com.example.myapplication.bean.rxbus.Grade_Change;
 import com.example.myapplication.databinding.ActivityTimingBinding;
 import com.example.myapplication.utils.CircularRevealUtil;
 
@@ -23,6 +24,7 @@ import me.goldze.mvvmhabit.utils.ToastUtils;
 public class TimingActivity extends BaseActivity<ActivityTimingBinding,TimingViewModel> {
     private View container;
     private int flag=0;
+    private Boolean isSave=true;
     @Override
     public int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_timing;
@@ -42,6 +44,9 @@ public class TimingActivity extends BaseActivity<ActivityTimingBinding,TimingVie
             Animator animator = CircularRevealUtil.createRevealAnimator(false,500,binding.myChronometer.getWidth()/2,(int)binding.myChronometer.getY(),container.getWidth(),container.getHeight(),container);
             animator.start();
         });
+        viewModel.isSave.observe(this,aBoolean -> {
+            isSave=aBoolean;
+        });
     }
 
     @Override
@@ -55,17 +60,21 @@ public class TimingActivity extends BaseActivity<ActivityTimingBinding,TimingVie
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (flag == 0) {
-                    binding.myChronometer.stop();
-                    viewModel.timingText.setValue("计时停止,点击返回页面");
-                    MainItemBean grade_msg=new MainItemBean(binding.myChronometer.getText().toString(),0);
-                    RxBus.getDefault().post(grade_msg);
-                    flag++;
-                }else if(flag==1){
-                    animBack();
-                    return true;
+                if(event.getAction()==MotionEvent.ACTION_UP) {
+                    if (flag == 0) {
+                        binding.myChronometer.stop();
+                        viewModel.timingText.setValue("计时停止,点击返回页面");
+                        flag++;
+                    } else {
+                        if (isSave) {
+                            Grade_Change grade_msg = new Grade_Change(1, binding.myChronometer.getText().toString(), 0);
+                            RxBus.getDefault().post(grade_msg);
+                        }
+                        animBack();
+
+                    }
                 }
-                return false;
+                return true;
             }
         });
     }

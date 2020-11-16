@@ -1,9 +1,12 @@
 package com.example.myapplication.utils;
 
+import com.example.myapplication.bean.rxbus.New_Formulation;
 import com.example.myapplication.callback.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import me.goldze.mvvmhabit.bus.RxBus;
 
 public class ShufflingFormulation {
     private volatile static ShufflingFormulation shufflingFormulation;
@@ -52,6 +55,7 @@ public class ShufflingFormulation {
         }
         formulation=mShufflingFormulation;
         mShufflingFormulation="";
+        RxBus.getDefault().post(new New_Formulation(formulation));
     }
 }
 

@@ -17,7 +17,9 @@ import com.example.myapplication.utils.ScreenUtils;
 
 import me.goldze.mvvmhabit.BR;
 import me.goldze.mvvmhabit.base.BaseActivity;
+import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.bus.RxBus;
+import me.goldze.mvvmhabit.utils.ToastUtils;
 
 public class TimerActivity extends BaseActivity<ActivityTimerBinding, TimerViewModel> {
     private int start_x;
@@ -38,6 +40,23 @@ public class TimerActivity extends BaseActivity<ActivityTimerBinding, TimerViewM
     }
     @Override
     public void initViewObservable() {
+        viewModel.gradeChange.observe(this,grade_change -> {
+            if(grade_change.getAction()==-1){
+                int position=grade_change.getState();
+               viewModel.items.remove(position);
+            }else if(grade_change.getAction()==1){
+                binding.rv.getLayoutManager().scrollToPosition(0);
+            }
+        });
+        viewModel.isShowEdit.observe(this,aBoolean -> {
+            if(aBoolean) {
+                binding.textNewCountdown.setVisibility(View.VISIBLE);
+                binding.btnNewCountdown.setVisibility(View.VISIBLE);
+            }else {
+                binding.textNewCountdown.setVisibility(View.INVISIBLE);
+                binding.btnNewCountdown.setVisibility(View.INVISIBLE);
+            }
+        });
         mSharedViewModel.isToTimer().observe(this,aBoolean -> {
             if(aBoolean==true){
                 container.post(new Runnable() {
@@ -69,7 +88,6 @@ public class TimerActivity extends BaseActivity<ActivityTimerBinding, TimerViewM
         mSharedViewModel=SharedViewModel.getSharedViewModel();
         container=binding.timerContainer;
         mSharedViewModel.isToTimer().postValue(true);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)

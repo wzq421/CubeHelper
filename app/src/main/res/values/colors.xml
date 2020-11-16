@@ -15,4 +15,6 @@
     <color name="transparent">#00000000</color>
     <color name="Yellow">#FFFF00</color>
     <color name="Red">	#FF0000</color>
+    <color name="SkyBlue">#87CEEB</color>
+    <color name="AliceBlue">#F0F8FF</color>
 </resources>

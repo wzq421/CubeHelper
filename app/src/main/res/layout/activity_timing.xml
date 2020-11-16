@@ -46,8 +46,7 @@
         android:gravity="center"
         android:text="不保存这次成绩"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        binding:onClickCommand="@{viewModel.saveGrade}" />
+      app:layout_constraintRight_toRightOf="parent"
+        binding:onClickCommand="@{viewModel.notSaveGrade}" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

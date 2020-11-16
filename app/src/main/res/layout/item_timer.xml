@@ -6,19 +6,19 @@
         <import type="com.example.myapplication.R" />
         <variable
             name="viewModel"
-            type="com.example.myapplication.ui.main.MainItemViewModel" />
+            type="com.example.myapplication.ui.timer.TimerItemViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:id="@+id/item_main"
+       android:layout_margin="10dp"
         android:orientation="horizontal"
-        mOnLongClickCommand="@{viewModel.itemDelete}"
-        >
+       mOnLongClickCommand="@{viewModel.itemDelete}">
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/item_icon"
             android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             imgurl="@{viewModel.mainItemBean.state}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -34,6 +34,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/item_icon"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

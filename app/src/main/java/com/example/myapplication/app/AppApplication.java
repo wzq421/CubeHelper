@@ -4,6 +4,7 @@ import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 
 
+
 import me.goldze.mvvmhabit.base.BaseApplication;
 import me.goldze.mvvmhabit.crash.CaocConfig;
 
@@ -12,6 +13,7 @@ public class AppApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         initCrash();
+
     }
     private void initCrash() {
         CaocConfig.Builder.create()

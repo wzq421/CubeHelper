@@ -24,10 +24,11 @@ public class TimingViewModel extends BaseViewModel {
     }
     public MutableLiveData<Go_To_Timing> goToTiming=new MutableLiveData<>();
     public MutableLiveData<String> timingText=new MutableLiveData<>("点击停止计时");
-    public  BindingCommand saveGrade=new BindingCommand(new BindingAction() {
+    public MutableLiveData<Boolean> isSave=new MutableLiveData<>(true);
+    public  BindingCommand notSaveGrade=new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            ToastUtils.showShort("don't save this one");
+            isSave.setValue(false);
         }
     });
 

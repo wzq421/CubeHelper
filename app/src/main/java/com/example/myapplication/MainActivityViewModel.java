@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.Application;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,9 @@ import com.example.myapplication.bean.rxbus.New_Countdown_Time;
 import com.example.myapplication.ui.timer.TimerViewModel;
 import com.example.myapplication.ui.timing.TimingActivity;
 import com.example.myapplication.ui.timing.TimingViewModel;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -99,20 +103,37 @@ public class MainActivityViewModel extends BaseViewModel {
         public void onClick(View v) {
             if(flag==0){
                 showTime.setValue("现在你有"+countDownTime+"秒时间观察魔方");
-                timer.start();
-                flag++;}else {
+                        timer.start();
+                        flag++;
+               }else {
                 flag=0;
                 goToTiming();
             }
         }
     };
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showTime.setValue("计时");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        timer.cancel();
+        flag=0;
+    }
+
     //设置计时器
     public void setCountDownTimer(int countDownTime){
-        timer = new CountDownTimer(countDownTime*1000, 1000){
+        timer = new CountDownTimer((countDownTime+1)*1000, 1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
-                showTime.setValue(millisUntilFinished / 1000 + "s");
+                if((millisUntilFinished/1000)!=countDownTime) {
+                    showTime.setValue(millisUntilFinished / 1000 + "s");
+                }
             }
 
             @Override
@@ -126,7 +147,6 @@ public class MainActivityViewModel extends BaseViewModel {
     //进入计时页面
 public void goToTiming(){
     timer.cancel();
-    showTime.setValue("计时");
     RxBus.getDefault().postSticky(new Go_To_Timing(1));
     startActivity(TimingActivity.class);
 }
