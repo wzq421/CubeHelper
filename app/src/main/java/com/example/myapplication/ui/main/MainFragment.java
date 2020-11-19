@@ -58,7 +58,6 @@ public class MainFragment extends BaseFragment<FragmentMainBinding,MainViewModel
                 builder.setPositiveButton("ok我学会了", null);
                 AlertDialog dialog = builder.create();
                 dialog.show();
-binding.rv.findViewHolderForLayoutPosition(0).itemView.findViewById(R.id.item_delete).setVisibility(View.VISIBLE);
             }
         });
         viewModel.newGrade.observe(this,mainItemBean -> {

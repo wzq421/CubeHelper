@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.ui.timer.basic.BasicTimerViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fra_basic_timer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/SkyBlue"
+        >
+        <ImageView
+            android:id="@+id/edit_countdown"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/edit_countdown"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            binding:onClickCommand="@{viewModel.showEdit}"/>
+    <LinearLayout
+        android:id="@+id/set_new_countdown"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@+id/edit_countdown"
+        app:layout_constraintRight_toRightOf="parent"
+       >
+
+        <EditText
+            android:id="@+id/text_new_countdown"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:hint="设置新的倒计时时长"
+            android:maxLines="1"
+            android:text="@={viewModel.newCountdown}" />
+
+        <Button
+            android:id="@+id/btn_new_countdown"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/AliceBlue"
+            android:visibility="invisible"
+            android:text="更改"
+            binding:onClickCommand="@{viewModel.changeCountdown}" />
+    </LinearLayout>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/change_linear"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_constraintHeight_percent="0.4"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/set_new_countdown">
+
+    <TextView
+        android:id="@+id/click_to_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="点击更换"
+        binding:onClickCommand="@{viewModel.getShufflingFormulation}"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/shuffling_formulation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@={viewModel.formulation}"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/click_to_change"
+        binding:onClickCommand="@{viewModel.getShufflingFormulation}" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

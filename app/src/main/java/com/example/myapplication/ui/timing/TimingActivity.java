@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import android.animation.Animator;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -64,14 +65,15 @@ public class TimingActivity extends BaseActivity<ActivityTimingBinding,TimingVie
                     if (flag == 0) {
                         binding.myChronometer.stop();
                         viewModel.timingText.setValue("计时停止,点击返回页面");
-                        flag++;
+                        flag=1;
                     } else {
                         if (isSave) {
                             Grade_Change grade_msg = new Grade_Change(1, binding.myChronometer.getText().toString(), 0);
                             RxBus.getDefault().post(grade_msg);
+                            isSave=false;
                         }
-                        animBack();
 
+                        animBack();
                     }
                 }
                 return true;

@@ -6,7 +6,6 @@
     >
     <data>
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
-
         <import type="me.goldze.mvvmhabit.binding.viewadapter.recyclerview.LineManagers" />
         <variable
             name="adapter"
@@ -73,103 +72,50 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
                 <ImageView
-                    android:id="@+id/edit_countdown"
+                    android:id="@+id/change_fragment"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:src="@drawable/edit_countdown"
+                    android:src="@drawable/quick_timer"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="centerInside"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    binding:onClickCommand="@{viewModel.showEdit}"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    binding:onClickCommand="@{viewModel.changeFrg}"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <LinearLayout
-                android:id="@+id/set_new_countdown"
+            <FrameLayout
+                android:id="@+id/frame"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="20dp"
-                android:background="@color/SkyBlue"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent="0.25"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/timer_appbar">
-
-                <EditText
-                    android:id="@+id/text_new_countdown"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:visibility="invisible"
-                    android:hint="设置新的倒计时时长"
-                    android:maxLines="1"
-                    android:text="@={viewModel.newCountdown}" />
-
-                <Button
-                    android:id="@+id/btn_new_countdown"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/AliceBlue"
-                    android:visibility="invisible"
-                    android:text="更改"
-                    binding:onClickCommand="@{viewModel.changeCountdown}" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/shuffling_formulation_linear"
+            <fragment
+                android:id="@+id/timer_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:background="@color/SkyBlue"
-               android:paddingBottom="20dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/set_new_countdown" >
-            <com.github.florent37.shapeofview.shapes.RoundRectView
-                android:layout_width="70dp"
                 android:layout_height="match_parent"
-                app:shape_roundRect_bottomLeftRadius="10dp"
-                app:shape_roundRect_bottomRightRadius="10dp"
-                app:shape_roundRect_topLeftRadius="10dp"
-                app:shape_roundRect_topRightRadius="10dp"
-                >
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/get_new_formulation"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/AliceBlue"
-                    binding:onClickCommand="@{viewModel.getShufflingFormulation}"
-                    android:textSize="15dp"
-                    android:text="随机生成打乱公式"
-                    />
-            </com.github.florent37.shapeofview.shapes.RoundRectView>
-            <TextView
-                android:id="@+id/shuffling_formulation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@={viewModel.formulation}"
-              />
-            </LinearLayout>
+                app:navGraph="@navigation/nav_timer"
+               />
+            </FrameLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@id/countdown_linear"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shuffling_formulation_linear"
+                app:layout_constraintTop_toBottomOf="@+id/frame"
                 app:layout_constraintVertical_bias="0"
                 binding:adapter="@{adapter}"
                 binding:itemBinding="@{viewModel.itemBinding}"
                 binding:items="@{viewModel.items}"
-                binding:layoutManager="@{LayoutManagers.linear()}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 binding:lineManager="@{LineManagers.horizontal()}" />
             <LinearLayout
                 android:id="@+id/countdown_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/goto_timing"
                 app:layout_constraintStart_toStartOf="parent"

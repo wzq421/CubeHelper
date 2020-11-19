@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_timer"
+    app:startDestination="@id/basicTimerFragment">
+    <fragment
+        android:id="@+id/basicTimerFragment"
+        android:name="com.example.myapplication.ui.timer.basic.BasicTimerFragment"
+        android:label="fragment_basic_timer"
+        tools:layout="@layout/fragment_basic_timer">
+        <action
+            android:id="@+id/action_basicTimerFragment_to_quickTimerFragment"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit"
+            app:destination="@id/quickTimerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/quickTimerFragment"
+        android:name="com.example.myapplication.ui.timer.quick.QuickTimerFragment"
+        android:label="fragment_quick_timer"
+        tools:layout="@layout/fragment_quick_timer">
+        <action
+            android:id="@+id/action_quickTimerFragment_to_basicTimerFragment"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit"
+            app:destination="@id/basicTimerFragment" />
+    </fragment>
+</navigation>

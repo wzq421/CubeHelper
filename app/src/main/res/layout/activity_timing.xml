@@ -44,9 +44,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@color/white"
         android:text="不保存这次成绩"
         android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintRight_toRightOf="parent"
         binding:onClickCommand="@{viewModel.notSaveGrade}" />
 </androidx.constraintlayout.widget.ConstraintLayout>

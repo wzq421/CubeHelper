@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.app.Application;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -11,27 +10,19 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.myapplication.bean.rxbus.Get_Countdown_Time;
 import com.example.myapplication.bean.rxbus.Go_To_Timing;
 import com.example.myapplication.bean.rxbus.Is_Login;
-import com.example.myapplication.bean.rxbus.MainFrg_To_MainAct;
-import com.example.myapplication.bean.rxbus.New_Countdown_Time;
-import com.example.myapplication.ui.timer.TimerViewModel;
 import com.example.myapplication.ui.timing.TimingActivity;
-import com.example.myapplication.ui.timing.TimingViewModel;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.base.BaseViewModel;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
-import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.bus.Messenger;
 import me.goldze.mvvmhabit.bus.RxBus;
 import me.goldze.mvvmhabit.bus.RxSubscriptions;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 
 public class MainActivityViewModel extends BaseViewModel {
-    private Disposable mNewCountDown;
+    private Disposable mGetCountDown;
     private Disposable mIsLogin;
     public  int  countDownTime=15;
     private CountDownTimer timer;
@@ -72,10 +63,10 @@ public class MainActivityViewModel extends BaseViewModel {
     public void registerRxBus() {
         super.registerRxBus();
         //更改倒计时时间
-        mNewCountDown=RxBus.getDefault().toObservable(New_Countdown_Time.class).subscribe(new Consumer<New_Countdown_Time>() {
+        mGetCountDown=RxBus.getDefault().toObservable(Get_Countdown_Time.class).subscribe(new Consumer<Get_Countdown_Time>() {
             @Override
-            public void accept(New_Countdown_Time new_countdown_time) throws Exception {
-                countDownTime=Integer.parseInt(new_countdown_time.getTime());
+            public void accept(Get_Countdown_Time get_countdown_time) throws Exception {
+                countDownTime=get_countdown_time.getGetCountdownTime();
                 setCountDownTimer(countDownTime);
             }
         });
@@ -87,13 +78,13 @@ public class MainActivityViewModel extends BaseViewModel {
             }
         });
         RxSubscriptions.add(mIsLogin);
-        RxSubscriptions.add(mNewCountDown);
+        RxSubscriptions.add( mGetCountDown);
 
     }
     @Override
     public void removeRxBus() {
         super.removeRxBus();
-        RxSubscriptions.remove(mNewCountDown);
+        RxSubscriptions.remove( mGetCountDown);
         RxSubscriptions.remove(mIsLogin);
     }
     private int flag=0;

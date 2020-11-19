@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         final View view = View.inflate(this, R.layout.activity_splash, null);
         setContentView(view);
         AlphaAnimation aa = new AlphaAnimation(0.3f,1.0f);
-        aa.setDuration(2000);
+        aa.setDuration(1500);
         view.startAnimation(aa);
         aa.setAnimationListener(new Animation.AnimationListener()
         {
