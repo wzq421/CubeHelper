@@ -26,8 +26,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    dataBinding {
-        enabled true
+    buildFeatures{
+        dataBinding = true
+        // for view binding :
+        // viewBinding = true
     }
 }
 
@@ -48,4 +50,7 @@ dependencies {
     compile 'net.steamcrafted:materialiconlib:1.0.9'
     implementation 'com.blankj:swipe-panel:1.2'
     implementation 'com.github.florent37:shapeofview:1.4.7'
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 }

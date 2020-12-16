@@ -6,33 +6,23 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.Animator;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import com.blankj.swipepanel.SwipePanel;
 import com.example.myapplication.R;
-import com.example.myapplication.bean.rxbus.Go_To_Timing;
-import com.example.myapplication.callback.SharedViewModel;
 import com.example.myapplication.databinding.ActivityTimerBinding;
-import com.example.myapplication.utils.CircularRevealUtil;
 import com.example.myapplication.utils.ScreenUtils;
 
 import me.goldze.mvvmhabit.BR;
 import me.goldze.mvvmhabit.base.BaseActivity;
-import me.goldze.mvvmhabit.binding.command.BindingCommand;
-import me.goldze.mvvmhabit.bus.RxBus;
-import me.goldze.mvvmhabit.utils.ToastUtils;
-import me.tatarka.bindingcollectionadapter2.LayoutManagers;
 
 public class TimerActivity extends BaseActivity<ActivityTimerBinding, TimerViewModel> {
     private int start_x;
     private int start_y;
     private View container;
-    private SharedViewModel mSharedViewModel;
     private SwipePanel mSwipePanel;
     private int mScreenWidth;
     private int mScreenHeight;
@@ -80,22 +70,6 @@ public class TimerActivity extends BaseActivity<ActivityTimerBinding, TimerViewM
                 binding.rv.getLayoutManager().scrollToPosition(0);
             }
         });
-        mSharedViewModel.isToTimer().observe(this,aBoolean -> {
-            if(aBoolean==true){
-                container.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            start_x = getIntent().getIntExtra("x", 0);
-                            if(start_x==-1)return;
-                            start_y= getIntent().getIntExtra("y", 0);
-                           /* Animator animator = CircularRevealUtil.createRevealAnimator(false,500,start_x,start_y,container.getWidth(),container.getHeight(),container);
-                            animator.start();*/
-                        }
-                    }
-                });
-            }
-        });
         viewModel.countdown.observe(this,s -> {
             binding.countdownTime.setText(s);
         });
@@ -109,9 +83,7 @@ public class TimerActivity extends BaseActivity<ActivityTimerBinding, TimerViewM
         mScreenHeight=ScreenUtils.getScreenHeight();
         mFrgHeight= (int)((int)mScreenHeight*0.65);
         initSlideSlip();
-        mSharedViewModel=SharedViewModel.getSharedViewModel();
         container=binding.timerContainer;
-        mSharedViewModel.isToTimer().postValue(true);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)

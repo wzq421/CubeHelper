@@ -3,7 +3,6 @@ package com.example.myapplication;
 import androidx.annotation.RequiresApi;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,19 +11,15 @@ import android.view.View;
 
 import com.blankj.swipepanel.SwipePanel;
 import com.example.myapplication.bean.rxbus.Get_Countdown_Time;
-import com.example.myapplication.callback.SharedViewModel;
 import com.example.myapplication.databinding.ActivityMainBinding;
 
-import com.example.myapplication.bean.rxbus.MainFrg_To_MainAct;
 import com.example.myapplication.ui.timer.TimerActivity;
-import com.example.myapplication.utils.CircularRevealUtil;
 import com.example.myapplication.utils.ScreenUtils;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
 import me.goldze.mvvmhabit.bus.RxBus;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding,MainActivityViewModel> {
-    private SharedViewModel mSharedViewModel;
     private SwipePanel mSwipePanel;
     private int mScreenWidth;
     private int mScreenHeight;
@@ -47,7 +42,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainActivityV
         super.initData();
         mScreenHeight=ScreenUtils.getScreenHeight();
         mScreenWidth=ScreenUtils.getScreenWidth();
-        mSharedViewModel=SharedViewModel.getSharedViewModel();
         container=binding.mainSwipePanel;
         initSlideSlip();
     }
@@ -66,7 +60,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainActivityV
                 });
             viewModel.isToTimer().observe(this,aBoolean -> {
                 if(aBoolean){
-                    goToTimer(mScreenWidth/2,mScreenHeight/2);
+                    goToTimer();
                 }
             });
     }
@@ -74,7 +68,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainActivityV
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        mSharedViewModel.isToTimer().setValue(false);
         viewModel.isToTimer().setValue(false);
     }
 
@@ -110,15 +103,13 @@ private void initSlideSlip(){
         @Override
         public void onFullSwipe(int direction) {
             mSwipePanel.close(direction);
-            goToTimer(-1,0);
+            goToTimer();
         }
     });
 }
-public void goToTimer(int x_num,int y_num){
+public void goToTimer(){
         RxBus.getDefault().postSticky(new Get_Countdown_Time(viewModel.countDownTime));
     Intent i=new Intent(MainActivity.this,TimerActivity.class);
-    i.putExtra("x",x_num);
-    i.putExtra("y",y_num);
     startActivity(i);
 }
 }

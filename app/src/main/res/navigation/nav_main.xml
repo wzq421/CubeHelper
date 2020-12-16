@@ -8,6 +8,26 @@
         android:id="@+id/mainFragment"
         android:name="com.example.myapplication.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main"/>
-
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit"/>
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.myapplication.ui.login.LoginFragment"
+        tools:layout="@layout/fragment_login"
+        android:label="fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit"/>
+    </fragment>
 </navigation>
