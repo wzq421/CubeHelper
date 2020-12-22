@@ -11,8 +11,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GradesDao {
     @Query("SELECT grades FROM grades WHERE userName==:userName ")
-    fun getUserInfoByUserName(userName:String): Flow<List<String>>
+    fun getGradesByUserName(userName:String): Flow<List<String>>
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(grades: Grades)
-
+    @Query("DELETE FROM grades")
+    suspend fun deleteAll()
 }

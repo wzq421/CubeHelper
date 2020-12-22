@@ -1,8 +1,10 @@
 package com.example.myapplication.bean.rxbus;
 
 public class Grade_Change {
+    //1表示添加成绩，-1表示删除成绩
     private int action;
     private String grade;
+    //增加成绩时默认为0，删除成绩时会记录其索引，防止同样的成绩删除错误
     private int state;
 
     public Grade_Change(int action, String grade,int state) {

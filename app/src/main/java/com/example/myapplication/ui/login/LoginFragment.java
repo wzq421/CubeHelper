@@ -29,6 +29,5 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding,LoginViewMo
     @Override
     public void initViewObservable() {
         super.initViewObservable();
-
     }
 }
